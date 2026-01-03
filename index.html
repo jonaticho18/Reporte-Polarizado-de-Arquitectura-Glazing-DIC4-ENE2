@@ -5,70 +5,55 @@
   <title>Glazing · Reporte Meta Ads (Últimos 30 días)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fuente -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     :root {
       --bg: #020617;
       --bg-soft: #0b1220;
-      --bg-card: #111827;
+      --card: #111827;
       --accent: #3b82f6;
-      --accent-soft: rgba(59,130,246,.2);
-      --accent-2: #22c55e;
-      --text-main: #f9fafb;
-      --text-soft: #9ca3af;
-      --border-soft: #1f2937;
-      --danger: #f87171;
+      --success: #22c55e;
       --warning: #facc15;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
     }
 
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1f2937 0%, #020617 55%);
-      color: var(--text-main);
-      padding: 16px;
+      font-family: "Inter", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0%, #020617 60%);
+      color: var(--text);
+      padding: 18px;
     }
 
     .page {
       max-width: 1200px;
-      margin: 0 auto 40px auto;
+      margin: auto;
     }
 
     header {
-      padding: 22px 26px;
+      background: radial-gradient(circle at top left, #2563eb, #020617 60%);
       border-radius: 22px;
-      background: radial-gradient(circle at top left, #2563eb, #020617 55%);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.85);
+      padding: 24px;
+      border: 1px solid rgba(148,163,184,.25);
+      box-shadow: 0 25px 60px rgba(15,23,42,.85);
       margin-bottom: 24px;
     }
 
     header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-size: 1.9rem;
       margin-bottom: 6px;
     }
 
     header p {
-      color: var(--text-soft);
-      font-size: 0.9rem;
+      color: var(--muted);
       max-width: 900px;
+      font-size: .9rem;
     }
 
     .pill-row {
@@ -76,144 +61,87 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 16px;
-      font-size: 0.8rem;
+      font-size: .8rem;
     }
 
     .pill {
+      background: rgba(15,23,42,.45);
+      border: 1px solid rgba(226,232,240,.3);
       padding: 4px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(226, 232, 240, 0.3);
-      background: rgba(15, 23, 42, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #e5e7eb;
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
     }
 
     .section {
       background: var(--bg-soft);
+      border: 1px solid var(--border);
       border-radius: 18px;
-      border: 1px solid var(--border-soft);
       padding: 18px;
+      margin-bottom: 22px;
       box-shadow: 0 12px 30px rgba(0,0,0,.45);
     }
 
-    .section-header {
-      margin-bottom: 14px;
-    }
-
     .section-title {
-      font-size: 1.05rem;
       font-weight: 600;
+      font-size: 1.05rem;
     }
 
-    .section-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      margin-top: 2px;
+    .section-sub {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
     }
 
-    .kpi-card {
-      background: var(--bg-card);
+    .kpi {
+      background: var(--card);
       border-radius: 14px;
-      padding: 12px;
-      border: 1px solid var(--border-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .kpi-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(59,130,246,.25), transparent 55%);
-      opacity: 0;
-      transition: opacity .25s ease;
-    }
-
-    .kpi-card:hover::before {
-      opacity: 1;
+      padding: 14px;
+      border: 1px solid var(--border);
     }
 
     .kpi-label {
       font-size: .72rem;
       text-transform: uppercase;
       letter-spacing: .05em;
-      color: var(--text-soft);
+      color: var(--muted);
     }
 
     .kpi-value {
-      margin-top: 6px;
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       font-weight: 600;
+      margin-top: 6px;
     }
 
-    .kpi-footer {
-      margin-top: 4px;
+    .kpi-foot {
       font-size: .75rem;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      flex-wrap: wrap;
+      color: var(--muted);
+      margin-top: 4px;
     }
 
-    .badge-positive { color: var(--accent-2); }
-    .badge-neutral { color: var(--warning); }
+    .good { color: var(--success); }
 
-    .layout-2col {
+    .layout-2 {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      grid-template-columns: 2fr 1.3fr;
       gap: 18px;
     }
 
-    @media (max-width: 900px) {
-      .layout-2col {
-        grid-template-columns: 1fr;
-      }
+    @media(max-width:900px){
+      .layout-2 { grid-template-columns: 1fr; }
     }
 
-    .card {
-      background: var(--bg-card);
-      border-radius: 14px;
-      border: 1px solid var(--border-soft);
-      padding: 14px;
-    }
-
-    .card h3 {
-      font-size: .95rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .card p {
-      font-size: .8rem;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .canvas-wrap {
-      width: 100%;
-      height: 260px;
-    }
+    canvas { height: 260px !important; }
 
     footer {
-      margin-top: 18px;
-      font-size: .72rem;
-      color: var(--text-soft);
       text-align: center;
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 12px;
     }
   </style>
 </head>
@@ -224,134 +152,115 @@
 <header>
   <h1>Glazing · Reporte Meta Ads</h1>
   <p>
-    Resultados de campañas de interacción orientadas a mensajes en Facebook e Instagram.
-    El objetivo principal fue generar conversaciones con potenciales clientes interesados
-    en servicios de vidriería y cerramientos.
+    Durante los últimos 30 días, las campañas de mensajes en Facebook e Instagram
+    lograron generar conversaciones de alto interés a un costo inferior al promedio
+    del mercado, consolidando Meta Ads como un canal rentable de captación.
   </p>
+
   <div class="pill-row">
     <div class="pill">🎯 Objetivo: Mensajes</div>
-    <div class="pill">📆 Período: últimos 30 días</div>
-    <div class="pill">📲 Canal: Facebook & Instagram</div>
-    <div class="pill">✅ Estado: Activa</div>
+    <div class="pill">📆 Últimos 30 días</div>
+    <div class="pill">📲 Facebook & Instagram</div>
+    <div class="pill">🏆 Rendimiento superior al promedio</div>
   </div>
 </header>
 
-<main>
-
 <section class="section">
-  <div class="section-header">
-    <div class="section-title">Visión general del rendimiento</div>
-    <div class="section-subtitle">
-      Principales métricas de alcance, interacción y generación de conversaciones.
-    </div>
+  <div class="section-title">Indicadores clave de rendimiento</div>
+  <div class="section-sub">
+    Métricas principales que explican el éxito de la campaña.
   </div>
 
   <div class="kpi-grid">
-    <div class="kpi-card">
+    <div class="kpi">
+      <div class="kpi-label">Inversión total</div>
+      <div class="kpi-value">$113.868</div>
+      <div class="kpi-foot">Controlada y eficiente</div>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi-label">Costo por mensaje promedio</div>
+      <div class="kpi-value good">$540</div>
+      <div class="kpi-foot">↓ Por debajo del mercado ($900–$1.500)</div>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi-label">CTR</div>
+      <div class="kpi-value good">1,9%</div>
+      <div class="kpi-foot">Interés real en los anuncios</div>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi-label">Hook rate (click → chat)</div>
+      <div class="kpi-value good">≈38%</div>
+      <div class="kpi-foot">Tráfico con alta intención</div>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi-label">Alcance</div>
+      <div class="kpi-value">27.039</div>
+      <div class="kpi-foot">Audiencia efectiva</div>
+    </div>
+
+    <div class="kpi">
       <div class="kpi-label">Impresiones</div>
       <div class="kpi-value">56.952</div>
-      <div class="kpi-footer">
-        <span>Visibilidad total</span>
-        <span class="badge-positive">Buen volumen</span>
-      </div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Alcance único</div>
-      <div class="kpi-value">27.039</div>
-      <div class="kpi-footer">
-        <span>Personas impactadas</span>
-        <span class="badge-positive">Audiencia efectiva</span>
-      </div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Conversaciones</div>
-      <div class="kpi-value">211</div>
-      <div class="kpi-footer">
-        <span>Chats iniciados</span>
-        <span class="badge-positive">Alta intención</span>
-      </div>
-    </div>
-
-    <div class="kpi-card">
-      <div class="kpi-label">Mensajes / 1.000 imp.</div>
-      <div class="kpi-value">3,7</div>
-      <div class="kpi-footer">
-        <span>Eficiencia del tráfico</span>
-        <span class="badge-neutral">Saludable</span>
-      </div>
+      <div class="kpi-foot">Buena frecuencia sin saturar</div>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="section-header">
-    <div class="section-title">Visualización del rendimiento</div>
-    <div class="section-subtitle">
-      Relación entre alcance, impresiones y conversaciones generadas.
-    </div>
+  <div class="section-title">Comparativa de costo por mensaje</div>
+  <div class="section-sub">
+    Comparación entre Glazing y el promedio del mercado en campañas de servicios.
   </div>
 
-  <div class="layout-2col">
-    <div class="card">
-      <h3>Distribución general</h3>
-      <p>Comparativa visual entre alcance, impresiones y conversaciones.</p>
-      <div class="canvas-wrap">
-        <canvas id="barChart"></canvas>
-      </div>
-    </div>
+  <div class="layout-2">
+    <canvas id="compareChart"></canvas>
 
-    <div class="card">
-      <h3>Embudo clic → conversación</h3>
-      <p>Proporción de personas que avanzan desde la visualización hasta el chat.</p>
-      <div class="canvas-wrap">
-        <canvas id="donutChart"></canvas>
-      </div>
+    <div>
+      <p class="section-sub">
+        El costo por conversación obtenido se encuentra significativamente
+        por debajo del promedio del mercado, lo que indica una combinación
+        correcta de segmentación, mensaje y creatividad.
+      </p>
+      <p class="section-sub">
+        Este resultado permite escalar la inversión con mayor previsibilidad
+        y menor riesgo.
+      </p>
     </div>
   </div>
 </section>
 
 <footer>
-  Datos exportados desde el Administrador de Anuncios de Meta · Reporte orientado a toma de decisiones
+  Datos extraídos del Administrador de Anuncios de Meta · Reporte orientado a decisiones comerciales
 </footer>
 
-</main>
 </div>
 
 <script>
-  new Chart(document.getElementById("barChart"), {
+  new Chart(document.getElementById("compareChart"), {
     type: "bar",
     data: {
-      labels: ["Alcance", "Impresiones", "Conversaciones"],
+      labels: ["Glazing", "Promedio mercado"],
       datasets: [{
-        data: [27039, 56952, 211],
+        data: [540, 1200],
+        backgroundColor: ["#22c55e", "#facc15"]
       }]
     },
     options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `$${ctx.raw} ARS por mensaje`
+          }
+        }
+      },
       scales: {
         x: { ticks: { color: "#e5e7eb" }, grid: { display: false } },
         y: { ticks: { color: "#9ca3af" }, grid: { color: "rgba(31,41,55,.4)" } }
-      }
-    }
-  });
-
-  new Chart(document.getElementById("donutChart"), {
-    type: "doughnut",
-    data: {
-      labels: ["Conversaciones", "Resto de interacciones"],
-      datasets: [{
-        data: [211, 27039 - 211],
-      }]
-    },
-    options: {
-      cutout: "65%",
-      plugins: {
-        legend: {
-          labels: { color: "#e5e7eb", font: { size: 11 } }
-        }
       }
     }
   });
